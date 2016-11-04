@@ -13,12 +13,12 @@ Imagine we have a pipeline with 3 steps (2 preprocessing steps and 1 classifier)
 * 2nd step has 2 params with 5 possible values each.
 * 3rd step has 1 param with 4 possible values.
 
-In scikit GridSearchCV, all models would be fitted for every combination of the parameters: 3*3*5*5*4=900 times.
+In scikit GridSearchCV, all models would be fitted for every combination of the parameters: 3\*3\*5\*5\*4=900 times.
 
 Whereas in HierarchicalGridSearchCV:
-* 1st model would only be fitted 3*3=9 times
-* 2nd model would only be fitted 3*3*5*5=225 times
-* 3rd model would be fitted 3*3*5*5*4=900 times
+* 1st model would only be fitted 3\*3=9 times
+* 2nd model would only be fitted 3\*3\*5\*5=225 times
+* 3rd model would be fitted 3\*3\*5\*5\*4=900 times
 
 In this particular scenario HierarchicalGridSearchCV will spend 100 times less time fitting the 1st model and 4 times less time fitting 2nd model.
 
