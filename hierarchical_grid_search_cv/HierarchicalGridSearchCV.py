@@ -1,11 +1,10 @@
+import logging, json
 import numpy as np
-from sklearn.externals.joblib import Parallel, delayed
-from sklearn.model_selection import StratifiedKFold
-from sklearn.grid_search import ParameterGrid
-from sklearn.base import clone
 from time import time
-import logging
-import json
+
+from sklearn.base import clone
+from sklearn.externals.joblib import Parallel, delayed
+from sklearn.model_selection import StratifiedKFold, ParameterGrid
 
 class HierarchicalGridSearchCV(object):
     def __init__(self, estimators, params, cv=None,
@@ -59,7 +58,7 @@ class HierarchicalGridSearchCV(object):
         self.steps[0] = [ (None,X[train],y[train],X[test],y[test],{},tuple(),None) for train,test in self.cv.split(X, y) ]
         
         for step in range(self.n_levels):
-            parameter_iterable = ParameterGrid(self.params[step])
+            parameter_iterable = list(ParameterGrid(self.params[step]))
             last_estimator = step+1==self.n_levels
 
             n_jobs = 1 if last_estimator else self.n_jobs # only 1 job for kNN
